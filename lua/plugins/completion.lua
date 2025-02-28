@@ -1,15 +1,10 @@
+---@type LazySpec[]
 return {
 	{
 		'saghen/blink.cmp',
 		-- optional: provides snippets for the snippet source
 		dependencies = {
 			'rafamadriz/friendly-snippets',
-			{
-				'echasnovski/mini.icons',
-				opts = {
-					style = 'ascii'
-				}
-			}
 		},
 
 		-- use a release tag to download pre-built binaries
@@ -37,6 +32,7 @@ return {
 				-- Adjusts spacing to ensure icons are aligned
 				nerd_font_variant = 'mono'
 			},
+			signature = {enabled = true},
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`
@@ -51,26 +47,5 @@ return {
 				},
 			},
 		},
-		opts_extend = { "sources.default" },
-		completion = {
-			menu = {
-				draw = {
-					components = {
-						kind_icon = {
-							ellipsis = false,
-							text = function(ctx)
-								local kind_icon, _, _ = require('mini.icons').get('lsp', ctx.kind)
-								return kind_icon
-							end,
-							-- Optionally, you may also use the highlights from mini.icons
-							highlight = function(ctx)
-								local _, hl, _ = require('mini.icons').get('lsp', ctx.kind)
-								return hl
-							end,
-						}
-					}
-				}
-			}
-		}
 	}
 }
