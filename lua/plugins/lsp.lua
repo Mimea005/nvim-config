@@ -4,8 +4,13 @@ return {
 		'neovim/nvim-lspconfig',
 		event = "VeryLazy",
 		config = function(_, opts)
+			local lspconfig = require("lspconfig")
 			require("mason").setup()
 			require("mason-lspconfig").setup()
+
+			local set_capabilites = function (capabilities)
+				return require('blink.cmp').get_lsp_capabilities(capabilities)
+			end
 
 			require("mason-lspconfig").setup_handlers {
         -- The first entry (without a key) will be the default handler
@@ -14,9 +19,12 @@ return {
         function (server_name) -- default handler (optional)
 					local config = opts[server_name] or {}
 					config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
-					require("lspconfig")[server_name].setup {config}
+					lspconfig[server_name].setup {config}
         end,
 			}
+
+			lspconfig.gopls.setup(set_capabilites(opts["gopls"] or {}))
+
 		end,
 		keys = {
 			{'<leader>lr', function() vim.lsp.buf.rename() end, desc="[r]ename"},
