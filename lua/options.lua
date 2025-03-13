@@ -37,3 +37,5 @@ vim.o.softtabstop = 2
 vim.o.shiftwidth = 2
 
 vim.o.hidden = true
+
+vim.opt.shell = "/bin/zsh"
