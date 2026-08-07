@@ -17,11 +17,19 @@ return {
 		---@module 'blink.cmp'
 		---@type blink.cmp.Config
 		opts = {
+			completion = {
+				menu = {
+					auto_show = true,
+				}
+			},
 			-- 'default' for mappings similar to built-in completion
 			-- 'super-tab' for mappings similar to vscode (tab to accept, arrow keys to navigate)
 			-- 'enter' for mappings similar to 'super-tab' but with 'enter' to accept
 			-- See the full "keymap" documentation for information on defining your own keymap.
-			keymap = { preset = 'super-tab' },
+			keymap = {
+				preset = 'default',
+				['<C-space>'] = { function(cmp) cmp.accept({ callback = function() cmp.show() end }) end }
+			},
 
 			appearance = {
 				-- Sets the fallback highlight groups to nvim-cmp's highlight groups
@@ -32,7 +40,7 @@ return {
 				-- Adjusts spacing to ensure icons are aligned
 				nerd_font_variant = 'mono'
 			},
-			signature = {enabled = true},
+			signature = { enabled = true },
 
 			-- Default list of enabled providers defined so that you can extend it
 			-- elsewhere in your config, without redefining it, due to `opts_extend`

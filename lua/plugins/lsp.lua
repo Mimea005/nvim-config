@@ -12,7 +12,7 @@ return {
 				return require('blink.cmp').get_lsp_capabilities(capabilities)
 			end
 
-			require("mason-lspconfig").setup_handlers {
+			require("mason-lspconfig").setup {
 				-- The first entry (without a key) will be the default handler
 				-- and will be called for each installed server that doesn't have
 				-- a dedicated handler.
@@ -21,9 +21,8 @@ return {
 					config.capabilities = require('blink.cmp').get_lsp_capabilities(config.capabilities)
 					lspconfig[server_name].setup { config }
 				end,
-			}
 
-			lspconfig.gopls.setup(set_capabilites(opts["gopls"] or {}))
+			}
 		end,
 		keys = {
 			{ '<leader>lr', function() vim.lsp.buf.rename() end,          desc = "[r]ename" },
@@ -59,6 +58,43 @@ return {
 	},
 	{
 		"pcolladosoto/tinygo.nvim",
-		config = function() require("tinygo").setup() end
+		opts = {}
+	},
+	{
+		"folke/trouble.nvim",
+		opts = {}, -- for default options, refer to the configuration section for custom setup.
+		cmd = "Trouble",
+		keys = {
+			{
+				"<leader>tw",
+				"<cmd>Trouble diagnostics toggle<cr>",
+				desc = "Diagnostics (workspace)",
+			},
+			{
+				"<leader>tb",
+				"<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+				desc = "Buffer Diagnostics (Trouble)",
+			},
+			{
+				"<leader>ts",
+				"<cmd>Trouble symbols toggle focus=false<cr>",
+				desc = "Symbols (Trouble)",
+			},
+			{
+				"<leader>tl",
+				"<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+				desc = "LSP Definitions / references / ... (Trouble)",
+			},
+			{
+				"<leader>tL",
+				"<cmd>Trouble loclist toggle<cr>",
+				desc = "Location List (Trouble)",
+			},
+			{
+				"<leader>tQ",
+				"<cmd>Trouble qflist toggle<cr>",
+				desc = "Quickfix List (Trouble)",
+			},
+		},
 	}
 }

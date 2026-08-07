@@ -26,7 +26,7 @@ require("which-key").add( {
 	{'<m-n>',  function() vim.cmd.tabnew() end, desc = '[n]ew tab', mode = { 'n', 'v', 'i', 'x' } },
 	{'<c-t>l', function() vim.cmd.tabnext() end, desc ='[l] next tab', mode = { 'n', 'v', 'i', 'x' } },
 	{'<c-t>h', function() vim.cmd.tabprevious() end, desc ='[h] previous tab', mode = { 'n', 'v', 'i', 'x' } },
-	{'<c-t>n', function() vim.cmd.tab() end, desc ='[n]ew tab', mode = { 'n', 'v', 'i', 'x' } },
+	{'<c-t>n', function() vim.cmd.tabnew() end, desc ='[n]ew tab', mode = { 'n', 'v', 'i', 'x' } },
 	{'<c-t>q', function() vim.cmd.tabclose() end, desc ='[q]uit tab', mode = { 'n', 'v', 'i', 'x' } },
 
 	-- Remap for dealing with word wrap

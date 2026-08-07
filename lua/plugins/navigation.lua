@@ -1,5 +1,5 @@
 return {
--- Easy navigation
+	-- Easy navigation
 	{
 		'ggandor/leap.nvim',
 		config = function() require('leap').add_default_mappings(true) end,
@@ -17,7 +17,7 @@ return {
 					}
 				},
 				keys = {
-					{ 'r', mode = {'o'}, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
+					{ 'r', mode = { 'o' }, function() require('flash').treesitter_search() end, desc = 'Treesitter Search' },
 				}
 			},
 		},
@@ -60,38 +60,49 @@ return {
 			'nvim-tree/nvim-web-devicons'
 		}
 	},
-		{
+	{
 		'nvim-telescope/telescope.nvim',
 		tag = '0.1.5',
 		cmd = 'Telescope',
 		config = function(_, opts)
-			require('telescope').setup(opts)
+			local telescope = require('telescope')
+			telescope.setup(opts)
+			telescope.load_extension('fzf')
 		end,
-		opts = function()
-			local actions = require 'telescope.actions'
-			return {
-				defaults = {
-					git_worktrees = vim.g.git_worktrees,
-					path_display = { 'truncate' },
-					sorting_strategy = 'ascending',
-					layout_config = {
-						horizontal = { prompt_position = 'top', preview_width = 0.55 },
-						vertical = { mirror = false },
-						width = 0.87,
-						height = 0.80,
-						preview_cutoff = 120,
-					},
-					mappings = {
-						i = {
-							['<C-h>'] = actions.which_key,
-							['<C-j>'] = actions.move_selection_next,
-							['<C-k>'] = actions.move_selection_previous,
-						},
-						n = { q = actions.close },
-					},
+		opts = {
+			defaults = {
+				git_worktrees = vim.g.git_worktrees,
+				path_display = { 'truncate' },
+				sorting_strategy = 'ascending',
+				layout_config = {
+					horizontal = { prompt_position = 'top', preview_width = 0.55 },
+					vertical = { mirror = false },
+					width = 0.87,
+					height = 0.80,
+					preview_cutoff = 120,
 				},
+				mappings = {
+					i = {
+						['<C-h>'] = 'which_key',
+						['<C-j>'] = 'move_selection_next',
+						['<C-k>'] = 'move_selection_previous',
+					},
+					n = { q = 'close' },
+				},
+			},
+			pickers = {
+				buffers = {
+					mappings = {
+						n = {
+							["<C-b>"] = "delete_buffer"
+						},
+						i = {
+							["<C-b>"] = "delete_buffer"
+						}
+					}
+				}
 			}
-		end,
+		},
 		dependencies = {
 			{ 'nvim-lua/plenary.nvim' },
 			{
@@ -104,7 +115,6 @@ return {
 							fzf = opts
 						}
 					}
-					require('telescope').load_extension('fzf')
 				end
 			},
 			{
@@ -237,7 +247,7 @@ return {
 			}
 		},
 		keys = {
-			{ '<leader>f', function() require('telescope.builtin').marks() end, desc = '[m]arks' },
+			{ '<leader>f',  function() require('telescope.builtin').marks() end,                               desc = '[m]arks' },
 			{ '<leader>gb', function() require('telescope.builtin').git_branches { use_file_path = true } end, desc = 'Git branches' },
 			{ '<leader>gc', function() require('telescope.builtin').git_commits { use_file_path = true } end,  desc = 'Git commits (repository)' },
 			{
@@ -276,6 +286,7 @@ return {
 			-- 	end,
 			-- 	desc = 'Find words in all files',
 			-- },
+			{ '<leader>fd',       function() require('telescope.builtin').diagnostics() end,                                  desc = '[d]iagnostics' },
 			{
 				'<leader>ls',
 				function()
