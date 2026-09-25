@@ -7,6 +7,7 @@ return {
 			'RRethy/nvim-treesitter-endwise',
 			'windwp/nvim-ts-autotag',
 			'JoosepAlviste/nvim-ts-context-commentstring',
+			'bombsimon/tree-sitter-monkey-c'
 		},
 		build = ':TSUpdate',
 		config = function(_, opts)

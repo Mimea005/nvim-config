@@ -8,10 +8,6 @@ return {
 			require("mason").setup()
 			require("mason-lspconfig").setup()
 
-			local set_capabilites = function(capabilities)
-				return require('blink.cmp').get_lsp_capabilities(capabilities)
-			end
-
 			require("mason-lspconfig").setup {
 				-- The first entry (without a key) will be the default handler
 				-- and will be called for each installed server that doesn't have
@@ -54,6 +50,16 @@ return {
 					{ 'williamboman/mason.nvim' },
 				}
 			},
+			{
+				"bombsimon/garmin-monkeyc.nvim",
+				ft = "monkeyc",
+				config = function()
+					require("garmin-monkeyc").setup({
+						capabilities = require("blink.cmp").get_lsp_capabilities(),
+						developer_key = "~/.Garmin/developer_key"
+					})
+				end
+			}
 		},
 	},
 	{
@@ -96,5 +102,5 @@ return {
 				desc = "Quickfix List (Trouble)",
 			},
 		},
-	}
+	},
 }
