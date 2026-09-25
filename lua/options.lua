@@ -8,6 +8,8 @@ vim.wo.relativenumber = true
 -- Keep signcolumn on by default
 vim.wo.signcolumn = 'yes'
 
+vim.wo.wrap = false
+
 vim.o.splitbelow = true -- splitting a new window below the current one
 vim.o.splitright = true -- splitting a new window at the right of the current one
 -- Set highlight on search
